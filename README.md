@@ -14,4 +14,10 @@ _________________
 * [M4: 3D Vision](./M4_3D_Vision)
 * [M5: Visual Recognition](./M5_Visual_Recognition)
 * [M6: Video Analysis](./M6_Video_Analysis)
+* M7: Introduction to Research Dissemination<sup>1</sup>
+* M8: Research and Technology Transfer Management<sup>2</sup>
+* M9: Master Dissertation<sup>3</sup>
 
+<sup>1</sup><sup>2</sup> Online Subjects at UOC campus with several Deliverables
+<br></br>
+<sup>3</sup> Master Dissertation starts when M5 and M6 are finished (early May).
