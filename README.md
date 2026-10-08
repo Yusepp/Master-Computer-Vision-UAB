@@ -18,6 +18,12 @@ _________________
 * M8: Research and Technology Transfer Management<sup>2</sup>
 * M9: Master Dissertation<sup>3</sup>
 
+# M3 Module Projects
+_________________
+Hands-on projects for the M3 (Machine Learning) module, consolidated here
+from the former `Yusepp/M3-CV` repository (P1–P4): see
+[`./m3-projects`](./m3-projects).
+
 <sup>1</sup><sup>2</sup> Online Subjects at UOC campus with several Deliverables
 <br></br>
 <sup>3</sup> Master Dissertation starts when M5 and M6 are finished (early May).

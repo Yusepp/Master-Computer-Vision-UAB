@@ -1,0 +1,59 @@
+def train_model(layers, title):
+    
+    score_trains = []
+    score_validations = []
+    score_tests = []
+    
+    loss_trains = []
+    loss_validations = []
+    loss_tests = []
+    
+    train_loader, test_loader = get_datasets()
+    X = np.concatenate([train_loader.next()[0] for i in range(train_loader.__len__())])
+    y = np.concatenate([train_loader.next()[1] for i in range(train_loader.__len__())]) 
+    kfold = KFold(n_splits=5, shuffle=True, random_state=RANDOM_SEED)
+    
+    for idx , (train, test) in enumerate(kfold.split(X,y)):
+        model = build_model(layers, title, False)
+        model.fit(X[train], y[train], epochs=EPOCHS, batch_size=BATCH_SIZE, verbose=0)
+        score_train = model.evaluate(X[train], y[train], verbose=0)
+        score_validation = model.evaluate(X[test], y[test], verbose=0)
+        score_test = model.evaluate(test_loader, verbose=0)
+        
+        print("---"*30)
+        print("K-FOLD {} Train Score: {:.3f}% Validation Score: {:.3f}% Test Score {:.3f}%".format(idx+1,score_train[1]*100,score_validation[1]*100, score_test[1]*100))
+        print("K-FOLD {} Train Loss: {:.3f} Validation Loss: {:.3f} Test Loss {:.3f}".format(idx+1,score_train[0],score_validation[0], score_test[0]))
+        print("---"*30)
+
+        
+        score_trains.append(score_train[1])
+        score_validations.append(score_validation[1])
+        score_tests.append(score_test[1])
+        
+        loss_trains.append(score_train[0])
+        loss_validations.append(score_validation[0])
+        loss_tests.append(score_test[0])
+    
+    print("---"*30)
+    print("Final K-FOLD Train Score: {:.3f}% Validation Score: {:.3f}% Test Score {:.3f}%".format(np.mean(score_trains)*100, np.mean(score_validations)*100, np.mean(score_tests)*100))
+    print("Final K-FOLD Train Loss: {:.3f} Validation Loss: {:.3f} Test Loss {:.3f}".format(np.mean(loss_trains), np.mean(loss_validations), np.mean(loss_tests)))
+    print("---"*30)
+    
+    print("Full Dataset Training")
+    train_loader, test_loader = get_datasets()
+    model = build_model(layers, title, False)
+    history = model.fit(train_loader, epochs=EPOCHS, steps_per_epoch=1881 // BATCH_SIZE, batch_size=BATCH_SIZE)
+    score_train = model.evaluate(train_loader, verbose=0)
+    score_test = model.evaluate(test_loader, verbose=0)
+    print("---"*30)
+    print("Full Train Score: {:.3f}% Test Score {:.3f}%".format(score_train[1]*100,score_validation[1]*100, score_test[1]*100))
+    print("Full Train Loss: {:.3f} Test Loss {:.3f}".format(score_train[0],score_validation[0], score_test[0]))
+    print("---"*30)
+    
+
+        
+        
+        
+
+        
+train_model([Dense(units=2048, activation='relu'),Dense(units=2048, activation='relu'), Dense(units=1024, activation='relu')], 'modelMLP_1.png')
